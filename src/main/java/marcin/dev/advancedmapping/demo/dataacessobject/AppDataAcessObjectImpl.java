@@ -9,6 +9,7 @@ import marcin.dev.advancedmapping.demo.entity.InstructorDetail;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 @AllArgsConstructor
@@ -25,19 +26,19 @@ public class AppDataAcessObjectImpl implements AppDataAcessObject {
 
     @Override
     public Instructor findInstructorById(int id) {
-        return entityManager.find(Instructor.class,id);
+        return entityManager.find(Instructor.class, id);
     }
 
     @Override
     @Transactional
     public void deleteInstructorById(int id) {
-        Instructor deleteInstructor = entityManager.find(Instructor.class,id);
+        Instructor deleteInstructor = entityManager.find(Instructor.class, id);
         entityManager.remove(deleteInstructor);
     }
 
     @Override
     public InstructorDetail findInstructorDetailById(int id) {
-       return entityManager.find(InstructorDetail.class,id);
+        return entityManager.find(InstructorDetail.class, id);
 
 
     }
@@ -45,17 +46,49 @@ public class AppDataAcessObjectImpl implements AppDataAcessObject {
     @Override
     @Transactional
     public void deleteInstructorDetailById(int id) {
-        InstructorDetail detailForDeletion = entityManager.find(InstructorDetail.class,id);
+        InstructorDetail detailForDeletion = entityManager.find(InstructorDetail.class, id);
         detailForDeletion.getInstructor().setInstructorDetail(null);
         entityManager.remove(detailForDeletion);
     }
 
     @Override
     public List<Course> findCoursesByInstructorId(int id) {
-        TypedQuery<Course>query= entityManager.createQuery(
+        TypedQuery<Course> query = entityManager.createQuery(
                 "from Course where instructor.id = :data", Course.class);
-        query.setParameter("data",id);
-        List<Course>courses = query.getResultList();
+        query.setParameter("data", id);
+        List<Course> courses = query.getResultList();
         return courses;
+    }
+
+    @Override
+    public Instructor findInstructorByIdJoinFetch(int id) {
+        TypedQuery<Instructor> query = entityManager.createQuery(
+                "select i from Instructor i "
+                        + "JOIN FETCH i.courses "
+                        +"JOIN FETCH i.instructorDetail "
+                        + "where i.id = :data", Instructor.class);
+        query.setParameter("data", id);
+        Instructor instructor = query.getSingleResult();
+
+        return instructor;
+    }
+
+    @Override
+    @Transactional
+    public void update(Instructor instructor) {
+        entityManager.merge(instructor);
+
+    }
+
+    @Override
+    @Transactional
+    public void updateCourse(Course course) {
+        entityManager.merge(course);
+    }
+
+    @Override
+    public Course findCourseById(int id) {
+        Course course = entityManager.find(Course.class,id);
+        return course;
     }
 }

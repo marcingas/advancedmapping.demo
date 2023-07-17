@@ -13,4 +13,9 @@ public interface AppDataAcessObject {
     InstructorDetail findInstructorDetailById(int id);
     void deleteInstructorDetailById(int id);
     List<Course>findCoursesByInstructorId(int id);
+    Instructor findInstructorByIdJoinFetch(int id);
+    void update(Instructor instructor);
+    void updateCourse(Course course);
+    Course findCourseById(int id);
+
 }

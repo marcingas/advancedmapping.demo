@@ -28,8 +28,41 @@ public class Application {
 //            deleteInstructorDetail(appDAO);
 //            createInstructorWithCourses(appDAO);
 //            findInstructorWithCourses(appDAO);
-            findCoursesForInstructor(appDAO);
+//            findCoursesForInstructor(appDAO);
+//            findInstructorWithCoursesJoinFetch(appDAO);
+//            updateInstructor(appDAO);
+            updateCourse(appDAO);
+
         };
+    }
+
+    private void updateCourse(AppDataAcessObject appDAO) {
+        int id = 10;
+        Course tempCourse = appDAO.findCourseById(id);
+        tempCourse.setTitle("English advanced class");
+
+        appDAO.updateCourse(tempCourse);
+        System.out.println("course updated: " + tempCourse);
+    }
+
+    private void updateInstructor(AppDataAcessObject appDAO) {
+        int id = 5;
+        Instructor tempInstructor = appDAO.findInstructorById(id);
+        tempInstructor.setLastName("Tester");
+        tempInstructor.setEmail("tester@trump.us");
+
+        appDAO.update(tempInstructor);
+        System.out.println("instructor: " + tempInstructor
+        );
+    }
+
+    private void findInstructorWithCoursesJoinFetch(AppDataAcessObject appDAO) {
+        int id = 5;
+        System.out.println("Finding instructor with id: " + id);
+        Instructor tempInstructor = appDAO.findInstructorByIdJoinFetch(id);
+        System.out.println("instructor: " + tempInstructor);
+        System.out.println("courses: " + tempInstructor.getCourses());
+        System.out.println("instructor details: " + tempInstructor.getInstructorDetail());
     }
 
     private void findCoursesForInstructor(AppDataAcessObject appDAO) {
@@ -40,7 +73,7 @@ public class Application {
 
         System.out.println("Finding courses for instructor: " + id);
 
-        List<Course>courses = appDAO.findCoursesByInstructorId(id);
+        List<Course> courses = appDAO.findCoursesByInstructorId(id);
         tempInstructor.setCourses(courses);
         System.out.println("List of courses: " + tempInstructor.getCourses());
     }
@@ -54,7 +87,7 @@ public class Application {
     }
 
     private void createInstructorWithCourses(AppDataAcessObject appDAO) {
-        Instructor instructorFirst = new Instructor("Donald","Trump","donald@trump.us");
+        Instructor instructorFirst = new Instructor("Donald", "Trump", "donald@trump.us");
         InstructorDetail instructorDetailFirst = new InstructorDetail("youtube.com/donald",
                 "politics");
         instructorFirst.setInstructorDetail(instructorDetailFirst);
@@ -72,20 +105,20 @@ public class Application {
     }
 
     private void deleteInstructorDetail(AppDataAcessObject appDAO) {
-        int id =3;
+        int id = 3;
         appDAO.deleteInstructorDetailById(id);
         System.out.println("done");
     }
 
     private void findInstructorDetail(AppDataAcessObject appDAO) {
         int id = 2;
-       InstructorDetail searchedDetail= appDAO.findInstructorDetailById(2);
+        InstructorDetail searchedDetail = appDAO.findInstructorDetailById(2);
         System.out.println("Details" + searchedDetail);
         System.out.println("Instructor:" + searchedDetail.getInstructor());
     }
 
     private void deleteInstructor(AppDataAcessObject appDAO) {
-        int id =1;
+        int id = 1;
         appDAO.deleteInstructorById(id);
         System.out.println("Instructor deleted!");
     }
@@ -99,7 +132,7 @@ public class Application {
     }
 
     private void createInstructor(AppDataAcessObject appDAO) {
-        Instructor instructorFirst = new Instructor("John","Dowe","john@dowe.us");
+        Instructor instructorFirst = new Instructor("John", "Dowe", "john@dowe.us");
         InstructorDetail instructorDetailFirst = new InstructorDetail("youtube.com/johndowe",
                 "duck shooting");
         instructorFirst.setInstructorDetail(instructorDetailFirst);
