@@ -1,12 +1,15 @@
 package marcin.dev.advancedmapping.demo;
 
 import marcin.dev.advancedmapping.demo.dataacessobject.AppDataAcessObject;
+import marcin.dev.advancedmapping.demo.entity.Course;
 import marcin.dev.advancedmapping.demo.entity.Instructor;
 import marcin.dev.advancedmapping.demo.entity.InstructorDetail;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
+import java.util.List;
 
 @SpringBootApplication
 public class Application {
@@ -22,8 +25,50 @@ public class Application {
 //            findInstructor(appDAO);
 //            deleteInstructor(appDAO);
 //            findInstructorDetail(appDAO);
-            deleteInstructorDetail(appDAO);
+//            deleteInstructorDetail(appDAO);
+//            createInstructorWithCourses(appDAO);
+//            findInstructorWithCourses(appDAO);
+            findCoursesForInstructor(appDAO);
         };
+    }
+
+    private void findCoursesForInstructor(AppDataAcessObject appDAO) {
+        int id = 5;
+        System.out.println("Finding instructor with id: " + id);
+        Instructor tempInstructor = appDAO.findInstructorById(id);
+        System.out.println("instructor: " + tempInstructor);
+
+        System.out.println("Finding courses for instructor: " + id);
+
+        List<Course>courses = appDAO.findCoursesByInstructorId(id);
+        tempInstructor.setCourses(courses);
+        System.out.println("List of courses: " + tempInstructor.getCourses());
+    }
+
+    private void findInstructorWithCourses(AppDataAcessObject appDAO) {
+        int id = 5;
+        System.out.println("Finding instructor with id: " + id);
+        Instructor tempInstructor = appDAO.findInstructorById(id);
+        System.out.println("instructor: " + tempInstructor);
+        System.out.println("courses: " + tempInstructor.getCourses());
+    }
+
+    private void createInstructorWithCourses(AppDataAcessObject appDAO) {
+        Instructor instructorFirst = new Instructor("Donald","Trump","donald@trump.us");
+        InstructorDetail instructorDetailFirst = new InstructorDetail("youtube.com/donald",
+                "politics");
+        instructorFirst.setInstructorDetail(instructorDetailFirst);
+
+        Course course1 = new Course("Learn Java!");
+        Course course2 = new Course("Learn Guitar!");
+        Course course3 = new Course("Learn Drums!");
+
+        instructorFirst.add(course1);
+        instructorFirst.add(course2);
+        instructorFirst.add(course3);
+
+        System.out.println("Courses saved: " + instructorFirst.getCourses());
+        appDAO.saveInstructor(instructorFirst);
     }
 
     private void deleteInstructorDetail(AppDataAcessObject appDAO) {
