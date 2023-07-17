@@ -32,8 +32,11 @@ public class AppDataAcessObjectImpl implements AppDataAcessObject {
     @Override
     @Transactional
     public void deleteInstructorById(int id) {
-        Instructor deleteInstructor = entityManager.find(Instructor.class, id);
-        entityManager.remove(deleteInstructor);
+        Instructor tempInstructor = entityManager.find(Instructor.class, id);
+        List<Course> courses = tempInstructor.getCourses();
+        for (Course course : courses)
+            course.setInstructor(null);
+        entityManager.remove(tempInstructor);
     }
 
     @Override
@@ -65,7 +68,7 @@ public class AppDataAcessObjectImpl implements AppDataAcessObject {
         TypedQuery<Instructor> query = entityManager.createQuery(
                 "select i from Instructor i "
                         + "JOIN FETCH i.courses "
-                        +"JOIN FETCH i.instructorDetail "
+                        + "JOIN FETCH i.instructorDetail "
                         + "where i.id = :data", Instructor.class);
         query.setParameter("data", id);
         Instructor instructor = query.getSingleResult();
@@ -88,7 +91,9 @@ public class AppDataAcessObjectImpl implements AppDataAcessObject {
 
     @Override
     public Course findCourseById(int id) {
-        Course course = entityManager.find(Course.class,id);
+        Course course = entityManager.find(Course.class, id);
         return course;
     }
+
+
 }

@@ -31,9 +31,16 @@ public class Application {
 //            findCoursesForInstructor(appDAO);
 //            findInstructorWithCoursesJoinFetch(appDAO);
 //            updateInstructor(appDAO);
-            updateCourse(appDAO);
+//            updateCourse(appDAO);
+            deleteInstructorOneToMany(appDAO);
 
         };
+    }
+
+    private void deleteInstructorOneToMany(AppDataAcessObject appDAO) {
+        int id = 5;
+        appDAO.deleteInstructorById(5);
+        System.out.println("Deleted");
     }
 
     private void updateCourse(AppDataAcessObject appDAO) {
