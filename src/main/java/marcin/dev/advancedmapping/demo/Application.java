@@ -34,9 +34,17 @@ public class Application {
 //            updateInstructor(appDAO);
 //            updateCourse(appDAO);
 //            deleteInstructorOneToMany(appDAO);
-            createCourseAndReviews(appDAO);
+//            createCourseAndReviews(appDAO);
+            retriveCourseAndReviews(appDAO);
 
         };
+    }
+
+    private void retriveCourseAndReviews(AppDataAcessObject appDAO) {
+        int id = 13;
+        Course tempCourse = appDAO.findCourseAndReviewsByCourseId(id);
+        System.out.println(tempCourse);
+        System.out.println(tempCourse.getReviews());
     }
 
     private void createCourseAndReviews(AppDataAcessObject appDAO) {

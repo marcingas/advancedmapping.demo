@@ -19,5 +19,7 @@ public interface AppDataAcessObject {
     Course findCourseById(int id);
     void save(Course course);
 
+    Course findCourseAndReviewsByCourseId(int id);
+
 
 }
