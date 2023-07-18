@@ -4,6 +4,7 @@ import marcin.dev.advancedmapping.demo.dataacessobject.AppDataAcessObject;
 import marcin.dev.advancedmapping.demo.entity.Course;
 import marcin.dev.advancedmapping.demo.entity.Instructor;
 import marcin.dev.advancedmapping.demo.entity.InstructorDetail;
+import marcin.dev.advancedmapping.demo.entity.Review;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -32,9 +33,20 @@ public class Application {
 //            findInstructorWithCoursesJoinFetch(appDAO);
 //            updateInstructor(appDAO);
 //            updateCourse(appDAO);
-            deleteInstructorOneToMany(appDAO);
+//            deleteInstructorOneToMany(appDAO);
+            createCourseAndReviews(appDAO);
 
         };
+    }
+
+    private void createCourseAndReviews(AppDataAcessObject appDAO) {
+        Course tempCourse = new Course("How to handle hard tasks");
+        tempCourse.addReview(new Review("Interesting stuff for professionals"));
+        tempCourse.addReview(new Review("Not so interesting stuff for professionals"));
+        tempCourse.addReview(new Review("OK"));
+        appDAO.save(tempCourse);
+        System.out.println("Course saved: " + tempCourse);
+
     }
 
     private void deleteInstructorOneToMany(AppDataAcessObject appDAO) {

@@ -95,5 +95,11 @@ public class AppDataAcessObjectImpl implements AppDataAcessObject {
         return course;
     }
 
+    @Override
+    @Transactional
+    public void save(Course course) {
+        entityManager.persist(course);
+    }
+
 
 }
