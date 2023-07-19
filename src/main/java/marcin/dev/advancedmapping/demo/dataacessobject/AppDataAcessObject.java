@@ -19,6 +19,8 @@ public interface AppDataAcessObject {
     Course findCourseById(int id);
     void save(Course course);
 
+    void deleteCourseById(int id);
+
     Course findCourseAndReviewsByCourseId(int id);
 
 

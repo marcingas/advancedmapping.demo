@@ -102,6 +102,14 @@ public class AppDataAcessObjectImpl implements AppDataAcessObject {
     }
 
     @Override
+    @Transactional
+    public void deleteCourseById(int id) {
+        Course course = entityManager.find(Course.class, id);
+        entityManager.remove(course);
+    }
+
+
+    @Override
     public Course findCourseAndReviewsByCourseId(int id) {
         TypedQuery<Course> query = entityManager.createQuery(
                 "select c from from Course c "

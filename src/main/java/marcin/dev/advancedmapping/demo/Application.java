@@ -35,9 +35,15 @@ public class Application {
 //            updateCourse(appDAO);
 //            deleteInstructorOneToMany(appDAO);
 //            createCourseAndReviews(appDAO);
-            retriveCourseAndReviews(appDAO);
-
+//            retriveCourseAndReviews(appDAO);
+            deleteCourseAndReviews(appDAO);
         };
+    }
+
+    private void deleteCourseAndReviews(AppDataAcessObject appDAO) {
+        int id = 13;
+        appDAO.deleteCourseById(id);
+        System.out.println("Course and Rerviews deleted");
     }
 
     private void retriveCourseAndReviews(AppDataAcessObject appDAO) {
