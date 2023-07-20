@@ -35,8 +35,34 @@ public class Application {
 //            retriveCourseAndReviews(appDAO);
 //            deleteCourseAndReviews(appDAO);
 //        createCourseAndStudents(appDAO);
-            findCourseAndStudents(appDAO);
+//            findCourseAndStudents(appDAO);
+//            findStudentAndCourses(appDAO);
+            addMoreCoursesForStudent(appDAO);
+
         };
+    }
+
+    private void addMoreCoursesForStudent(AppDataAcessObject appDAO) {
+        int id = 2;
+        Student tempStudent = appDAO.findStudentAndCoursesByStudentId(id);
+
+        Course tempCourse1 = new Course("Learn Spring Boot 3");
+        Course tempCourse2 = new Course("Learn Java");
+        Course tempCourse3 = new Course("Learn Linux");
+
+        tempStudent.addCOurse(tempCourse1);
+        tempStudent.addCOurse(tempCourse2);
+        tempStudent.addCOurse(tempCourse3);
+
+        appDAO.update(tempStudent);
+
+    }
+
+    private void findStudentAndCourses(AppDataAcessObject appDAO) {
+        int id = 1;
+        Student tempStudent = appDAO.findStudentAndCoursesByStudentId(id);
+        System.out.println("Student: " + tempStudent);
+        System.out.println("Courses:" + tempStudent.getCourses());
     }
 
     private void findCourseAndStudents(AppDataAcessObject appDAO) {

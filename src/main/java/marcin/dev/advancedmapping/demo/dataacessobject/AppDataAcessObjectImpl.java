@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import marcin.dev.advancedmapping.demo.entity.Course;
 import marcin.dev.advancedmapping.demo.entity.Instructor;
 import marcin.dev.advancedmapping.demo.entity.InstructorDetail;
+import marcin.dev.advancedmapping.demo.entity.Student;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -130,5 +131,23 @@ public class AppDataAcessObjectImpl implements AppDataAcessObject {
         query.setParameter("data", id);
         Course course = query.getSingleResult();
         return course;
+    }
+
+    @Override
+    public Student findStudentAndCoursesByStudentId(int id) {
+        TypedQuery<Student> query = entityManager.createQuery(
+                "select s from Student s "
+                        + "JOIN FETCH s.courses "
+                        + "where s.id = :data", Student.class
+        );
+        query.setParameter("data", id);
+        Student student = query.getSingleResult();
+        return student;
+    }
+
+    @Override
+    @Transactional
+    public void update(Student student) {
+        entityManager.merge(student);
     }
 }
