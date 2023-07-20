@@ -23,5 +23,7 @@ public interface AppDataAcessObject {
 
     Course findCourseAndReviewsByCourseId(int id);
 
+    Course findCourseAndStudentsByCourseId(int id);
+
 
 }

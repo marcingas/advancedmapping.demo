@@ -1,10 +1,7 @@
 package marcin.dev.advancedmapping.demo;
 
 import marcin.dev.advancedmapping.demo.dataacessobject.AppDataAcessObject;
-import marcin.dev.advancedmapping.demo.entity.Course;
-import marcin.dev.advancedmapping.demo.entity.Instructor;
-import marcin.dev.advancedmapping.demo.entity.InstructorDetail;
-import marcin.dev.advancedmapping.demo.entity.Review;
+import marcin.dev.advancedmapping.demo.entity.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -36,8 +33,27 @@ public class Application {
 //            deleteInstructorOneToMany(appDAO);
 //            createCourseAndReviews(appDAO);
 //            retriveCourseAndReviews(appDAO);
-            deleteCourseAndReviews(appDAO);
+//            deleteCourseAndReviews(appDAO);
+//        createCourseAndStudents(appDAO);
+            findCourseAndStudents(appDAO);
         };
+    }
+
+    private void findCourseAndStudents(AppDataAcessObject appDAO) {
+        int id = 14;
+        Course tempCourse = appDAO.findCourseAndStudentsByCourseId(id);
+        System.out.println("Course:" + tempCourse);
+        System.out.println("Students:" + tempCourse.getStudents());
+    }
+
+    private void createCourseAndStudents(AppDataAcessObject appDAO) {
+        Course course = new Course("How to write on Computer");
+        Student student1 = new Student("Juri", "Kowalski", "juri@kow.pl");
+        Student student2 = new Student("Ann", "Kowalski", "ann@kow.pl");
+
+        course.addStudent(student1);
+        course.addStudent(student2);
+        appDAO.save(course);
     }
 
     private void deleteCourseAndReviews(AppDataAcessObject appDAO) {
