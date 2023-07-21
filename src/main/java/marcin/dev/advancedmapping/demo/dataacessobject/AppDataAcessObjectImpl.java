@@ -150,4 +150,11 @@ public class AppDataAcessObjectImpl implements AppDataAcessObject {
     public void update(Student student) {
         entityManager.merge(student);
     }
+
+    @Override
+    @Transactional
+    public void deleteStudentById(int id) {
+        Student tempStudent = entityManager.find(Student.class, id);
+        entityManager.remove(tempStudent);
+    }
 }

@@ -34,5 +34,7 @@ public interface AppDataAcessObject {
 
     void update(Student student);
 
+    void deleteStudentById(int id);
+
 
 }

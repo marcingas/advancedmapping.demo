@@ -34,13 +34,21 @@ public class Application {
 //            createCourseAndReviews(appDAO);
 //            retriveCourseAndReviews(appDAO);
 //            deleteCourseAndReviews(appDAO);
-//        createCourseAndStudents(appDAO);
+//            createCourseAndStudents(appDAO);
 //            findCourseAndStudents(appDAO);
 //            findStudentAndCourses(appDAO);
-            addMoreCoursesForStudent(appDAO);
-
+//            addMoreCoursesForStudent(appDAO);
+//            deleteCourse(appDAO);
+            deleteStudent(appDAO);
         };
     }
+
+    private void deleteStudent(AppDataAcessObject appDAO) {
+        int id = 1;
+        appDAO.deleteStudentById(id);
+        System.out.println("Student: " + id + " deleted");
+    }
+
 
     private void addMoreCoursesForStudent(AppDataAcessObject appDAO) {
         int id = 2;
@@ -82,8 +90,8 @@ public class Application {
         appDAO.save(course);
     }
 
-    private void deleteCourseAndReviews(AppDataAcessObject appDAO) {
-        int id = 13;
+    private void deleteCourse(AppDataAcessObject appDAO) {
+        int id = 15;
         appDAO.deleteCourseById(id);
         System.out.println("Course and Rerviews deleted");
     }
